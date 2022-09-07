@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  background-color: #f1f5fe;
+  margin: 0;
+  font-family: 'Quicksand', sans-serif;
+}
+.bg-gradient {
+  background: #ACD9B2 !important;
+}

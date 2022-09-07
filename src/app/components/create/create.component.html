@@ -1,0 +1,31 @@
+<h2 class="text-center">Component CREATE</h2>
+
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <!-- se usa formgroup para refirse a todo el formulario y este apunta al que asignamos en el ts y formcontrolname para referirse a que propiedad dentro del postform en este caso al title -->
+
+        <input formControlName="name" minlength="4" type="text" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Edad</label>
+        <input formControlName="age" type="number" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Dia de nacimiento</label>
+        <input formControlName="dateOfBirth" type="text" class="form-control" placeholder="dd/MM/AA" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Dia de inscripcion</label>
+      <input formControlName="dateOfInscription" type="text" class="form-control" placeholder="dd/MM/AA" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Costo</label>
+      <input formControlName="cost" type="number" class="form-control" required>
+    </div>
+
+
+    <button [disabled]="!postForm.valid" type="submit" class="button btn btn-primary">Crear</button>
+
+</form>

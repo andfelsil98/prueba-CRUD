@@ -1,0 +1,33 @@
+<h1>Show component</h1>
+<div class="cont-button">
+  <!-- en vez de href se usa routerlink que es una herramienta de angular y lo mando a la pestana de crear -->
+  <a routerLink="/create" type="button" class="btn btn-primary button">Create</a>
+</div>
+
+
+<table class="table table-hover table-striped">
+  <thead class="bg-gradient text-white">
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Nacimiento</th>
+      <th>Inscripcion</th>
+      <th>Costo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- para mostrar un arreglo en distintas filas -->
+    <tr *ngFor="let post of posts">
+      <td> {{ post.name }}</td>
+      <td> {{ post.age }}</td>
+      <td> {{ post.dateOfBirth }}</td>
+      <td> {{ post.dateOfInscription }}</td>
+      <td> {{ post.cost }}</td>
+      <td>
+      <button routerLink="/edit/{{post.id}}" class="btn btn-outline-secondary"><i class="fa-solid fa-pen"></i></button>
+      <button (click)="deleteRow(post)" class="btn btn-outline-danger" ><i class="fa-solid fa-trash"></i></button>
+    </td>
+    </tr>
+  </tbody>
+</table>
