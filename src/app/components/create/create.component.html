@@ -6,26 +6,81 @@
         <label class="form-label">Nombre</label>
         <!-- se usa formgroup para refirse a todo el formulario y este apunta al que asignamos en el ts y formcontrolname para referirse a que propiedad dentro del postform en este caso al title -->
 
-        <input formControlName="name" minlength="4" type="text" class="form-control" required>
+        <input formControlName="name" minlength="4" type="text" class="form-control" >
+        <div class="messages" *ngIf="postForm.errors" [class.active]="postForm.errors">
+          <p>
+            <strong *ngIf="postForm.hasError('invalid_name') && nameField?.dirty">
+              Debe contener almenos dos nombres
+            </strong>
+          </p>
+        </div>
     </div>
     <div class="mb-3">
         <label class="form-label">Edad</label>
-        <input formControlName="age" type="number" class="form-control" required>
+        <input formControlName="age"  type="number" class="form-control" >
+        <div class="messages" *ngIf="ageField?.touched && ageField?.invalid" [class.active]="ageField?.touched && ageField?.invalid">
+          <p>
+            <strong *ngIf="ageField?.hasError('required')">
+              Este campo es requerido
+            </strong>
+          </p>
+          <p>
+            <strong *ngIf="ageField?.hasError('min')">
+              Tienes que ser mayor de 18
+            </strong>
+          </p>
+        </div>
     </div>
     <div class="mb-3">
         <label class="form-label">Dia de nacimiento</label>
-        <input formControlName="dateOfBirth" type="text" class="form-control" placeholder="dd/MM/AA" required>
+        <input formControlName="dateOfBirth" type="date" class="form-control">
+        <div class="messages" *ngIf="postForm.errors" [class.active]="postForm.errors">
+          <p>
+            <!--
+            pristine - No se ha tenido interacción alguna con el campo
+            untouched - Si pusiste el cursor o fuiste al campo con la tecla de tabulador, sólo se activa cuando se llega al campo
+            touched - Si ya te fuiste del campo, ya cambiaste el cursor de lugar o seguiste a los demás campos
+            dirty - Si ya se tuvo interacción con el campo -->
+            <strong *ngIf="postForm.hasError('invalid_age') && ageField?.dirty && birthField?.dirty">
+              La edad no corresponde con la fecha de nacimiento
+            </strong>
+          </p>
+        </div>
     </div>
     <div class="mb-3">
       <label class="form-label">Dia de inscripcion</label>
-      <input formControlName="dateOfInscription" type="text" class="form-control" placeholder="dd/MM/AA" required>
+      <input formControlName="dateOfInscription" type="date" class="form-control">
+      <!-- cuando quiero evaluar errores grupales (es decir cuando tengo en cuenta mas de un input para la validacion) tomo propiamente el formulario completo para realizar dicha validacion en este caso postForm.has error ?? y la respectiva validacion que en este caso es llamar a la validacion personalizada -->
+      <div class="messages" *ngIf="postForm.errors" [class.active]="postForm.errors">
+
+        <p>
+          <strong *ngIf="postForm.hasError('invalid_inscription') && inscriptionField?.dirty && birthField?.dirty">
+            La inscripcion debe ser mayor a la fecha de nacimiento
+          </strong>
+        </p>
+      </div>
     </div>
     <div class="mb-3">
       <label class="form-label">Costo</label>
-      <input formControlName="cost" type="number" class="form-control" required>
+      <input formControlName="cost" type="number" class="form-control">
+      <div class="messages" *ngIf="postForm.errors" [class.active]="postForm.errors">
+        <p>
+          <strong *ngIf="postForm.hasError('invalid_cost') && costField?.dirty && inscriptionField?.dirty">
+            El costo no corresponde con la inscripcion
+          </strong>
+        </p>
+      </div>
     </div>
 
 
-    <button [disabled]="!postForm.valid" type="submit" class="button btn btn-primary">Crear</button>
+
+
+    <!-- <button [disabled]="!postForm.valid" (click) = "showData()" type="button" class="button btn btn-primary">Validar info</button> -->
+
+    <div >
+      <button [disabled]="!postForm.valid" type="submit" class="button btn btn-primary">Crear</button>
+    </div>
+
+
 
 </form>
